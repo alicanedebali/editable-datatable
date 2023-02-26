@@ -1,36 +1,48 @@
-import { useRef } from "react";
-import { UserInterface } from "../types";
+import { useContext, useRef } from "react";
+import { UserContext } from "../context/User.context";
+import { ContextInterface, UserInterface } from "../types";
 
-export const TableRow : React.FC<{props:{user:UserInterface} & {focusId:string; setFocusId:(id:string)=>void}}>=(
-    {props}
-    )=>{
-    const cityRef=useRef<HTMLDivElement | null>(null);
+interface TableRowInterface {
+    user: UserInterface;
+    focusId: string;
+    setFocusId: (id: string) => void;
+}
 
-    const updateEditableValue=()=>{
-        if(props.user.id === props.focusId){
-            props.user.city=cityRef.current?.textContent || props.user.city;
+export const TableRow: React.FC<{ props: TableRowInterface }> = (
+    { props }
+) => {
+    const cityRef = useRef<HTMLDivElement | null>(null);
+    const { updateUser } = useContext(UserContext) as ContextInterface;
+
+    const updateEditableValue = () => {
+        if (props.user.id === props.focusId) {
+            updateUser(props.focusId, cityRef.current?.textContent || props.user.city)
         }
     }
 
-    return(
+    return (
         <tr>
             <td>
-                <img src={props.user.avatar} />
+                <img
+                    src={props.user.avatar}
+                    alt={props.user.avatar} />
             </td>
             <td>
                 {props.user.name + ' ' + props.user.surname}
             </td>
             <td>
-              <div
-                suppressContentEditableWarning={true} 
-                contentEditable={true}
-                ref={props.user.id === props.focusId? cityRef : null}
-                onFocus={()=>props.setFocusId(props.user.id)}
-                onBlur={()=>{
+                <div
+                    suppressContentEditableWarning={true}
+                    contentEditable={true}
+                    ref={props.user.id === props.focusId ? cityRef : null}
+                    onFocus={() => {
+                        props.setFocusId(props.user.id);
+                    }}
+                    onBlur={() => {
                         updateEditableValue();
-                         }}>
-                            {props.user.city}
-              </div>
+                    }}>
+                    {props.user.city}
+                </div>
             </td>
             <td>
                 {props.user.birthDate}

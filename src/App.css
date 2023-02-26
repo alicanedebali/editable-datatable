@@ -1,5 +1,10 @@
+:root {
+  --border-radius: 10px;
+  --media-border-radius: 50%;
+}
 
-.container{
+.container {
+  min-height: calc(100vh - 200px);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -7,25 +12,30 @@
   align-items: center;
 }
 
-
-table {
-  border-spacing: 1; 
-  border-collapse: collapse; 
-  border-radius:6px;
-  overflow:hidden;
-  max-width:800px; 
-  width:100%;
+.table {
+  border: 1px solid;
+  border-radius: var(--border-radius);
 }
 
-table, td, th {
+table {
+  border-collapse: collapse;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+}
+
+table,
+td,
+th {
   border: 1px solid;
   text-align: center;
 }
 
-thead tr { 
-  height:60px;
-  background:#cccccc;
-  font-size:16px;
+thead tr {
+  height: 60px;
+  background: #cccccc;
+  font-size: 16px;
 }
 
 tbody tr {
@@ -33,24 +43,24 @@ tbody tr {
 }
 
 img {
-  border-radius: 50%;
+  border-radius: var(--media-border-radius);
   height: 40px;
 }
 
 
-.spinner{
+.spinner {
   display: inline-block;
   width: 80px;
   height: 80px;
 }
 
-.spinner::after{
+.spinner::after {
   content: " ";
   display: block;
   width: 64px;
   height: 64px;
   margin: 8px;
-  border-radius: 50%;
+  border-radius: var(--media-border-radius);
   border: 6px solid #b0b0b0;
   border-color: #b0b0b0 transparent #b0b0b0 transparent;
   animation: spinner 1.2s linear infinite;
@@ -60,6 +70,7 @@ img {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
